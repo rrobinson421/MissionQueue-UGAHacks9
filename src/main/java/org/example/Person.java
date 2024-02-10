@@ -17,4 +17,16 @@ public class Person {
         this.description = description;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
 }

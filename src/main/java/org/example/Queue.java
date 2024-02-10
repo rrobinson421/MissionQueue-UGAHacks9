@@ -29,6 +29,9 @@ public class Queue{
     public String miniConsoleText;
     private ArrayList<Person> peopleArray = new ArrayList<>();
     private ArrayList<Mission> missionArray = new ArrayList<>();
+    private ArrayList<MissionArray> missionArrayArray = new ArrayList<>();
+    private Person[] personArray = new Person[10];
+
 
     public Queue() {
         frame = new JFrame();
@@ -104,10 +107,15 @@ public class Queue{
                                 firstName2.getText().equals("Add First Name") || lastName2.getText().equals("Remove Last Name"))) {
                             throw new IllegalArgumentException();
                         } //if
+                        addPersonToMission(firstName2.getText(), lastName2.getText());
+                        updateMiniConsoleText("Mission " + missionArrayArray.size() + 1 + " Added: " + firstName2.getText() + " " + lastName2.getText());
                     } catch (IllegalArgumentException exception) {
                         updateMiniConsoleText("Person does not exist");
+                    } catch (IndexOutOfBoundsException exception) {
+                        updateMiniConsoleText("Mission " + missionArrayArray.size() + " is full.");
                     } //try
                 } else if (o == addMission) {
+                    //reset array
                     updateTempConsoleText("test3");
                 } else if (o == removePerson) {
                     updateMiniConsoleText("removed person");
@@ -143,7 +151,31 @@ public class Queue{
         } //if
     } //addPeople
 
+    public void addPersonToMission(String first, String last) {
+        Person person = new Person (first, last);
+        if (!peopleArray.contains(person) || duplicateMissionPerson(first, last)) {
+            throw new IllegalArgumentException();
+        } else {
+            for (int i = 0; i < 10; i++) {
+                if (personArray[i] == null) {
+                    personArray[i] = person;
+                    i = 10;
+                } //if
+                if (i == 9) {
+                    throw new IndexOutOfBoundsException();
+                }
+            } //for
+        }
+    }
 
+    public boolean duplicateMissionPerson(String first, String last) {
+        for (Person elem : personArray) {
+            if (elem.getFirstName().equals(first) && elem.getLastName().equals(last)) {
+                return false;
+            } //if
+        } //for
+        return false;
+    } //duplicateMissionPerson
 
     /**
      * Singular Panel
