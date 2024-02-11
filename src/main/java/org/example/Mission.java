@@ -8,13 +8,21 @@ public class Mission {
     } //Mission
 
     public String getPeople() {
-        String output = "";
-        for (Person elem : people) {
-            output += "\n[";
-            output += elem.getFirstName() + ", " + elem.getLastName() + ", " + elem.getDescription();
-            output += "]";
-        } //for
-        return output;
+        try {
+            String output = "";
+            if (people[0] == null) {
+                output = "[]";
+            } else {
+                for (Person elem : people) {
+                    output += "\n[";
+                    output += elem.getFirstName() + ", " + elem.getLastName() + ", " + elem.getDescription();
+                    output += "]";
+                } //for
+            }
+            return output;
+        } catch (NullPointerException exception) {
+            throw new NullPointerException();
+        }
     } //getPeople;
 
 }
